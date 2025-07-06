@@ -49,6 +49,35 @@ body {
     font-weight: bold;
 }
 
+.side-bar ul li a:hover {
+    text-decoration: underline;
+    color: #cfcfff;
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#toggle-btn {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.side-bar.collapsed {
+    width: 70px;
+    transition: width 0.3s;
+}
+
+.side-bar.collapsed ul li a {
+    font-size: 0;
+    padding: 0;
+}
+
 .movie-table{
     width: 100%;
     border-collapse: collapse;
@@ -98,7 +127,7 @@ button {
     border-color: #4837ff;
 }
 
-#add-movie-form {
+#add-movie-form, #update-movie-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -111,11 +140,13 @@ button {
 }
 
 #add-movie-form input,
-#add-movie-form textarea {
+#add-movie-form textarea,
+ #update-movie-form input,
+#update-movie-form textarea {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
     font-size: x-large;
-}
+}   
 
