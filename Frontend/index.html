@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Movies</title>
-</head>
-<body>
-    <h1>Hello world!!</h1>
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <div class="side-bar">
+        <h2>Quản lý phim</h2>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="add.html">Thêm mới</a></li>
+          <li><a href="update.html">Sửa</a></li>
+        </ul>
+      </div>
+      <section class="main-content">
+        <h1>Danh sách phim</h1>
+        <div id="search-bar">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Tìm kiếm phim..."
+          />
+          <button id="search-button">Tìm kiếm</button>
+        </div>
+        <table class="movie-table">
+          <thead>
+            <tr>
+              <th>Poster</th>
+              <th>Tiêu đề</th>
+              <th>Thể loại</th>
+              <th>Năm</th>
+              <th>Đạo diễn</th>
+              <th>Mô tả</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody id="movie-list">
+            <!-- Movie items will be dynamically inserted here -->
+          </tbody>
+        </table>
+      </section>
+      <script src="js/main.js"></script>
+    </div>
+  </body>
 </html>
