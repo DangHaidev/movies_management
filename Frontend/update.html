@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
     <div class="container">
-      <div class="side-bar">
-        <h2>Quản lý phim</h2>
-        <ul>
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="add.html">Thêm mới</a></li>
-          <li><a href="update.html">Sửa</a></li>
-        </ul>
-      </div>
-      <section class="main-content">
-        <h1>Cập nhập phim</h1>
-        <form id="add-movie-form">
-            <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required readonly>
+        <div class="side-bar">
+            <h2>Quản lý phim</h2>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="add.html">Thêm mới</a></li>
+                <li><a href="update.html">Sửa</a></li>
+            </ul>
+        </div>
+        <section class="main-content">
+            <h1>Cập nhập phim</h1>
+            <form id="update-movie-form">
+                <input type="text" id="id" name="id" required readonly style="display: none;">
 
-          <label for="title">Tiêu đề:</label>
-          <input type="text" id="title" name="title" required>
+                <label for="title">Tiêu đề:</label>
+                <input type="text" id="title" name="title" required>
 
-          <label for="genre">Thể loại:</label>
-          <input type="text" id="genre" name="genre" required>
+                <label for="genre">Thể loại:</label>
+                <input type="text" id="genre" name="genre" required>
 
-          <label for="year">Năm:</label>
-          <input type="number" id="year" name="year" required>
+                <label for="year">Năm:</label>
+                <input type="number" id="year" name="year" required>
 
-          <label for="director">Đạo diễn:</label>
-          <input type="text" id="director" name="director" required>
+                <label for="director">Đạo diễn:</label>
+                <input type="text" id="director" name="director" required>
 
-          <label for="description">Mô tả:</label>
-          <textarea id="description" name="description" required></textarea>
+                <label for="description">Mô tả:</label>
+                <textarea id="description" name="description" required></textarea>
 
-          <button type="submit" style="max-width: max-content;">Cập nhập</button>
-        </form>
-      </section>
+                <button type="submit" style="max-width: max-content;">Cập nhập</button>
+            </form>
+        </section>
     </div>
+    <script src="js/edit.js"></script>
 </body>
 </html>

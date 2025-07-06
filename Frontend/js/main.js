@@ -1,3 +1,5 @@
+const BASE_URL = "http://localhost:5001";
+
 const movies = [
   {
     id: 1,
@@ -28,48 +30,60 @@ const movies = [
   },
 ];
 
+// async function fetchMovies() {
+//   try {
+//     const response = await fetch(BASE_URL + "/api/movie");
+//     const data = await response.json();
+//     renderMovieList(movies);
+//   } catch (error) {
+//     console.error("Lỗi khi lấy danh sách phim:", error);
+//   }
+// }
 
-async function fetchMovies() {
-    const response = await fetch("http://localhost:3000/movies");
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    return data;
-}
-
-const movieList = document.getElementById("movie-list");
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
-movies.forEach((movie) => {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-        <td><img src="${movie.posterUrl}" alt="${movie.title} Poster" class="movie-poster"></td>
-        <td>${movie.title}</td> 
-        <td>${movie.genre}</td>
-        <td>${movie.releaseYear}</td>
-        <td>${movie.director}</td>
-        <td>${movie.description}</td>
-        <td>
-            <button class="btn-update" data-id="${movie.id}">Cập nhập</button>
-            <button class="btn-delete">Xóa</button>
-        </td>
-    `;
-  movieList.appendChild(row);
-});
 
-const deleteButtons = document.querySelectorAll(".btn-delete");
-deleteButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    const row = this.parentElement.parentElement;
-    row.remove();
+function renderMovieList(movies) {
+  const movieList = document.getElementById("movie-list");
+  movieList.innerHTML = ""; // xoá nội dung cũ nếu có
+  movies.forEach((movie) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+            <td><img src="${movie.posterUrl}" alt="${movie.title} Poster" class="movie-poster"></td>
+            <td>${movie.title}</td> 
+            <td>${movie.genre}</td>
+            <td>${movie.releaseYear}</td>
+            <td>${movie.director}</td>
+            <td>${movie.description}</td>
+            <td>
+                <button class="btn-update" data-id="${movie.id}">Cập nhật</button>
+                <button class="btn-delete" data-id="${movie.id}">Xóa</button>
+            </td>
+        `;
+    movieList.appendChild(row);
   });
-});
 
-const updateButtons = document.querySelectorAll(".btn-update");
-updateButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    const id = this.getAttribute("data-id");
-    window.location.href = `update.html?id=${id}`;
+  attachEventListeners();
+}
+
+function attachEventListeners() {
+  document.querySelectorAll(".btn-delete").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const id = this.getAttribute("data-id");
+      try {
+        await fetch(BASE_URL + `/api/movie/${id}`, { method: "DELETE" });
+      } catch (error) {
+        console.error("Lỗi khi xóa phim:", error);
+      }
+    });
   });
-});
+
+  document.querySelectorAll(".btn-update").forEach((button) => {
+    button.addEventListener("click", function () {
+      const id = this.getAttribute("data-id");
+      window.location.href = `update.html?id=${id}`;
+    });
+  });
+}
+
+renderMovieList(movies);
