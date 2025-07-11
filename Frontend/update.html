@@ -32,7 +32,7 @@
                 <input type="text" id="genre" name="genre" required>
 
                 <label for="year">Năm:</label>
-                <input type="number" id="year" name="year" required>
+                <input type="number" id="releaseYear" name="releaseYear" required>
 
                 <label for="director">Đạo diễn:</label>
                 <input type="text" id="director" name="director" required>
@@ -40,7 +40,10 @@
                 <label for="description">Mô tả:</label>
                 <textarea id="description" name="description" required></textarea>
 
-                <button type="submit" style="max-width: max-content;">Cập nhập</button>
+                         <label for="description">Link ảnh</label>
+        <textarea id="PosterUrl" name="PosterUrl" required></textarea>
+
+                <button onclick="updateMovie()" style="max-width: max-content;">Cập nhập</button>
             </form>
         </section>
     </div>

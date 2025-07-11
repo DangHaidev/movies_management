@@ -1,0 +1,14 @@
+# Bỏ qua thư mục build
+/build/
+
+# Bỏ qua các file log
+*.log
+
+# Bỏ qua các file cấu hình môi trường
+.env
+
+Backend/moviesApi/bin/
+
+Backend/moviesApi/obj/
+
+Backend/moviesApi/.vs/

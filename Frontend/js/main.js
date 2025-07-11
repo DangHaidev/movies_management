@@ -1,51 +1,51 @@
 const BASE_URL = "http://localhost:5001";
 
-const movies = [
-  {
-    id: 1,
-    title: "Inception",
-    genre: "Khoa học viễn tưởng",
-    releaseYear: 2010,
-    director: "Christopher Nolan",
-    description: "Dom Cobb là một chuyên gia đánh cắp tiềm thức...",
-    posterUrl: "https://placehold.co/60x90",
-  },
-  {
-    id: 2,
-    title: "Interstellar",
-    genre: "Khoa học viễn tưởng",
-    releaseYear: 2014,
-    director: "Christopher Nolan",
-    description: "Một nhóm nhà du hành vũ trụ du hành qua hố sâu không gian...",
-    posterUrl: "https://placehold.co/60x90",
-  },
-  {
-    id: 3,
-    title: "Parasite",
-    genre: "Tâm lý, Xã hội",
-    releaseYear: 2019,
-    director: "Bong Joon-ho",
-    description: "Gia đình nghèo chen chân vào nhà giàu...",
-    posterUrl: "https://placehold.co/60x90",
-  },
-];
+let allMovies = [];
 
-// async function fetchMovies() {
-//   try {
-//     const response = await fetch(BASE_URL + "/api/movie");
-//     const data = await response.json();
-//     renderMovieList(movies);
-//   } catch (error) {
-//     console.error("Lỗi khi lấy danh sách phim:", error);
-//   }
-// }
+async function fetchMovies() {
+  try {
+    const response = await fetch(BASE_URL + "/api/movie");
+    const data = await response.json();
+    allMovies = data;
+    renderMovieList(data);
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách phim:", error);
+  }
+}
 
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 
+
+function searchMovies() {
+  const keyword = searchInput.value.trim().toLowerCase();
+  const filtered = allMovies.filter(movie =>
+    movie.title.toLowerCase().includes(keyword)
+    ||  movie.genre.toLowerCase().includes(keyword) 
+  );
+  renderMovieList(filtered);
+}
+searchButton.addEventListener("click", searchMovies);
+
+// Hoặc cho phép tìm kiếm khi gõ Enter:
+searchInput.addEventListener("keyup", function (e) {
+  if (e.key === "Enter") {
+    searchMovies();
+  }
+});
+
 function renderMovieList(movies) {
   const movieList = document.getElementById("movie-list");
-  movieList.innerHTML = ""; // xoá nội dung cũ nếu có
+  const noResults = document.getElementById("no-results");
+  movieList.innerHTML = ""; // xoá nội dung cũ
+
+if (movies.length === 0) {
+    noResults.style.display = "block"; // Hiện thông báo
+    return;
+  } else {
+    noResults.style.display = "none"; // Ẩn nếu có kết quả
+  }
+
   movies.forEach((movie) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -71,7 +71,9 @@ function attachEventListeners() {
     button.addEventListener("click", async function () {
       const id = this.getAttribute("data-id");
       try {
-        await fetch(BASE_URL + `/api/movie/${id}`, { method: "DELETE" });
+        await fetch(BASE_URL + `/api/movie/${id}`, { method: "DELETE" }).then(() => location.reload());
+    alert("Phim đã được xóa thành công!");
+
       } catch (error) {
         console.error("Lỗi khi xóa phim:", error);
       }
@@ -87,5 +89,6 @@ function attachEventListeners() {
 }
 
 
-
-renderMovieList(movies);
+searchInput.addEventListener("input", searchMovies);
+// renderMovieList(movies);
+fetchMovies();
