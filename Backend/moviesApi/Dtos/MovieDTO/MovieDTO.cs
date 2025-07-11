@@ -14,7 +14,7 @@ namespace moviesApi.Dtos.MovieDTO
 
         public string? Description { get; set; }
 
-        public string? PosterUrl { get; set; } = "https://static.wikia.nocookie.net/vsbattles/images/3/37/Doraemon_renderImproved.png/revision/latest/scale-to-width-down/250?cb=20190730170109"
+        public string? PosterUrl { get; set; } = "https://static.wikia.nocookie.net/vsbattles/images/3/37/Doraemon_renderImproved.png/revision/latest/scale-to-width-down/250?cb=20190730170109";
     }
     
     public class UpdateMovieRequestDto
