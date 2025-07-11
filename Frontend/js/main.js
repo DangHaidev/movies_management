@@ -36,8 +36,10 @@ searchInput.addEventListener("keyup", function (e) {
 
 function renderMovieList(movies) {
   const movieList = document.getElementById("movie-list");
+  const movieCards = document.getElementById("movie-cards");
   const noResults = document.getElementById("no-results");
   movieList.innerHTML = ""; // xoá nội dung cũ
+  movieCards.innerHTML = "";
 
 if (movies.length === 0) {
     noResults.style.display = "block"; // Hiện thông báo
@@ -61,6 +63,24 @@ if (movies.length === 0) {
             </td>
         `;
     movieList.appendChild(row);
+
+// Render dạng card
+    const card = document.createElement("div");
+    card.className = "movie-card";
+    card.innerHTML = `
+      <img src="${movie.posterUrl}" alt="${movie.title} Poster" />
+      <h3>${movie.title}</h3>
+      <p><strong>Thể loại:</strong> ${movie.genre}</p>
+      <p><strong>Năm:</strong> ${movie.releaseYear}</p>
+      <p><strong>Đạo diễn:</strong> ${movie.director}</p>
+      <p><strong>Mô tả:</strong> ${movie.description}</p>
+      <div class="actions">
+        <button class="btn-update" data-id="${movie.id}">Cập nhật</button>
+        <button class="btn-delete" data-id="${movie.id}">Xóa</button>
+      </div>
+    `;
+    movieCards.appendChild(card);
+
   });
 
   attachEventListeners();
@@ -70,6 +90,8 @@ function attachEventListeners() {
   document.querySelectorAll(".btn-delete").forEach((button) => {
     button.addEventListener("click", async function () {
       const id = this.getAttribute("data-id");
+       const confirmDelete = confirm("Bạn có chắc chắn muốn xóa phim này?");
+      if (!confirmDelete) return;
       try {
         await fetch(BASE_URL + `/api/movie/${id}`, { method: "DELETE" }).then(() => location.reload());
     alert("Phim đã được xóa thành công!");
